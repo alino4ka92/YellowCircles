@@ -5,12 +5,12 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
 from random import randrange
+from UI import Ui_MainWindow
 
-
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.btn.clicked.connect(self.start)
         self.draw_flag = False
 
@@ -28,11 +28,12 @@ class MyWidget(QMainWindow):
 
     def draw(self, qp):
         circles = []
-        qp.setBrush(QColor(255, 255, 0))
+
         for i in range(5):
             d = randrange(100)
             circles.append((randrange(self.frameGeometry().width()), randrange(self.frameGeometry().height()), d, d))
         for i in circles:
+            qp.setBrush(QColor(randrange(255), randrange(255), randrange(255)))
             qp.drawEllipse(*i)
 
 
